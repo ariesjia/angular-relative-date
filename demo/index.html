@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>angular quark tab</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body ng-app="myApp">
+
+        <div class="g-head">
+            <div class="g-cont">
+                <h1 class="logo">Angular Relative Date</h1>
+            </div>
+
+        </div>
+
+        <div class="g-cont" ng-controller="MainCtrl">
+
+            <div class="md-item">
+                <p>$scope.testDate = new Date();</p>
+                <p> testDate | relativeDate  : <strong>{{ testDate | relativeDate}}</strong> </p>
+            </div>
+
+            <div class="md-item">
+                <p>$scope.testDate1 = new Date() - 2124;</p>
+                <p> testDate1 | relativeDate  : <strong>{{ testDate1 | relativeDate}}</strong></p>
+            </div>
+
+            <div class="md-item">
+                <p>$scope.testDate2 = new Date() - 289733;</p>
+                <p> testDate2 | relativeDate  : <strong>{{ testDate2 | relativeDate}}</strong></p>
+            </div>
+
+            <div class="md-item">
+                <p>$scope.testDate3 = new Date() - 872374;</p>
+                <p> testDate3 | relativeDate  : <strong>{{ testDate3 | relativeDate}}</strong></p>
+            </div>
+
+
+            <div class="md-item">
+                <p>$scope.testDate4 = new Date() - 9333333;</p>
+                <p> testDate4 | relativeDate  : <strong>{{ testDate4 | relativeDate}}</strong></p>
+            </div>
+
+
+            <div class="md-item">
+                <p>$scope.testDate5 = new Date() - 847484040;</p>
+                <p> testDate5 | relativeDate  : <strong>{{ testDate5 | relativeDate}}</strong></p>
+            </div>
+
+
+        </div>
+
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+
+    <script src="dist/angular-relative-date.min.js"></script>
+
+    <script src="scripts/app.js"></script>
+    <script src="scripts/controllers/main.js"></script>
+
+</body>
+</html>
