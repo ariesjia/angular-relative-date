@@ -52,13 +52,28 @@
             </div>
 
 
+            <div class="md-item">
+                <p>$scope.testDate6 = new Date().getTime() + 3000;</p>
+                <p> testDate6 | relativeDate  : <strong>{{ testDate6 | relativeDate}}</strong></p>
+            </div>
+
+            <div class="md-item">
+                <p>$scope.testDate7 = new Date().getTime() + 848300;</p>
+                <p> testDate7 | relativeDate  : <strong>{{ testDate7 | relativeDate}}</strong></p>
+            </div>
+
+            <div class="md-item">
+                <p> $scope.testDate9 = new Date().getTime() + 1292228300;</p>
+                <p> testDate9 | relativeDate  : <strong>{{ testDate9 | relativeDate}}</strong></p>
+            </div>
+
         </div>
 
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
 
-    <script src="dist/angular-relative-date.min.js"></script>
+    <script src="dist/angular-relative-date.js"></script>
 
     <script src="scripts/app.js"></script>
     <script src="scripts/controllers/main.js"></script>
