@@ -1,71 +1,80 @@
 'use strict';
 
-angular.module('quark.relativeDate',[])
-    .filter('relativeDate', ['$filter' , function ($filter){
+angular.module('quark.relativeDate', [])
+    .provider('relativeDateFilter', [function () {
 
-        var CONVERSIONS = {
+        var self = this,
+            CONVERSIONS = {
             now: 1,
             second: 1000,
             minute: 60,
-            hour:   60,
-            day : 24
-        },labelText = {
-            now: "现在",
-            before_second: "%n秒钟前",
-            before_minute: "%n分钟前",
-            before_hour: "%n小时前",
-            before_day: "%n天前",
-
-            after_second: "还剩%n秒钟",
-            after_minute: "还剩%n分钟",
-            after_hour: "还剩%n小时",
-            after_day: "还剩%n天"
+            hour: 60,
+            day: 24
         };
 
-        var getText = function(key){
+        self.labelText = {
+
+            now: "now",
+            before_second: "%n second ago",
+            before_minute: "%n mintue ago",
+            before_hour: "%n hour ago",
+            before_day: "%n day ago",
+
+            after_second: "%n second left",
+            after_minute: "%n mintue left",
+            after_hour: "%n hour left",
+            after_day: "%n day left"
+
+        };
+
+        self.dateFormat = 'yyyy-MM-dd';
+
+        var getText = function (key) {
                 var labelKey = key;
-                if(key === 'before_now' || key === 'after_now'){
-                    key  = 'now';
+                if (key === 'before_now' || key === 'after_now') {
+                    labelKey = 'now';
                 }
-                return labelText[key];
+                return self.labelText[labelKey];
             },
-            localize = function(delta, unit_key){
+            localize = function (delta, unit_key) {
 
                 var prefix = 'before_';
 
-                if( delta  < 0 ){
+                if (delta < 0) {
                     prefix = 'after_';
                 }
 
-                var unit = getText(prefix+unit_key);
+                var unit = getText(prefix + unit_key);
 
-                return unit.replace('%n', Math.abs(delta) );
+                return unit.replace('%n', Math.abs(delta));
             };
 
 
-        return function(date){
+        this.$get = [ "$filter" , function($filter){
+            return function (date) {
+                var now = new Date(),
+                    relativeTime = new Date(date),
+                    delta = now - relativeTime,
+                    unit_key = 'now',
+                    key;
 
-            var now = new Date(),
-                relativeTime = new Date(date),
-                delta = now - relativeTime,
-                unit_key = 'now',
-                key;
-
-            for (key in CONVERSIONS) {
-                if (Math.abs(delta) < CONVERSIONS[key]){
-                    break;
+                for (key in CONVERSIONS) {
+                    if (Math.abs(delta) < CONVERSIONS[key]) {
+                        break;
+                    }
+                    unit_key = key;
+                    delta = delta / CONVERSIONS[key];
                 }
-                unit_key = key;
-                delta = delta / CONVERSIONS[key];
+
+                if (unit_key === 'day' && delta > 0) {
+                    return $filter('date')(relativeTime, self.dateFormat);
+                }
+
+                return localize(Math.floor(delta), unit_key);
             }
+        }];
 
-            if (unit_key === 'day' && delta > 0 ) {
-                return $filter('date')(relativeTime,'yyyy-MM-dd');
-            }
 
-            return localize(Math.floor(delta), unit_key);
-
-        }
 
     }]);
 

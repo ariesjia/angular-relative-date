@@ -36,31 +36,31 @@ var relativeDate = relativeDateFilter(testDate);
 ```html
 $scope.testDate = new Date();
 
-testDate | relativeDate : 现在
+testDate | relativeDate : now
 
 
 
 $scope.testDate1 = new Date() - 2124;
 
-testDate1 | relativeDate : 2秒钟前
+testDate1 | relativeDate : 2 second ago
 
 
 
 $scope.testDate2 = new Date() - 289733;
 
-testDate2 | relativeDate : 4分钟前
+testDate2 | relativeDate : 4 mintue ago
 
 
 
 $scope.testDate3 = new Date() - 872374;
 
-testDate3 | relativeDate : 14分钟前
+testDate3 | relativeDate : 14 mintue ago
 
 
 
 $scope.testDate4 = new Date() - 9333333;
 
-testDate4 | relativeDate : 2小时前
+testDate4 | relativeDate : 2 hour ago
 
 
 
@@ -72,19 +72,19 @@ testDate5 | relativeDate : 2014-05-02
 
 $scope.testDate6 = new Date().getTime() + 3000;
 
-testDate6 | relativeDate : 还剩3秒钟
+testDate6 | relativeDate : 3 second left
 
 
 
 $scope.testDate7 = new Date().getTime() + 848300;
 
-testDate7 | relativeDate : 还剩15分钟
+testDate7 | relativeDate : 15 mintue left
 
 
 
 $scope.testDate9 = new Date().getTime() + 1292228300;
 
-testDate9 | relativeDate : 还剩15天
+testDate9 | relativeDate : 15 day left
 
 ```
 

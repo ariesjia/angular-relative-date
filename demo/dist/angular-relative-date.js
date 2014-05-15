@@ -1,37 +1,37 @@
 /**
  * angular-relative-date
- * @version v0.0.1 - 2014-05-12
+ * @version v0.0.2 - 2014-05-15
  * @link https://github.com/ariesjia/angular-relative-date
  * @author Chenjia <ariesjia00@hotmail.com>
  * @license MIT License, http://www.opensource.org/licenses/MIT
  */
 'use strict';
-angular.module('quark.relativeDate', []).filter('relativeDate', [
-  '$filter',
-  function ($filter) {
-    var CONVERSIONS = {
+angular.module('quark.relativeDate', []).provider('relativeDateFilter', [function () {
+    var self = this, CONVERSIONS = {
         now: 1,
         second: 1000,
         minute: 60,
         hour: 60,
         day: 24
-      }, labelText = {
-        now: '\u73b0\u5728',
-        before_second: '%n\u79d2\u949f\u524d',
-        before_minute: '%n\u5206\u949f\u524d',
-        before_hour: '%n\u5c0f\u65f6\u524d',
-        before_day: '%n\u5929\u524d',
-        after_second: '\u8fd8\u5269%n\u79d2\u949f',
-        after_minute: '\u8fd8\u5269%n\u5206\u949f',
-        after_hour: '\u8fd8\u5269%n\u5c0f\u65f6',
-        after_day: '\u8fd8\u5269%n\u5929'
       };
+    self.labelText = {
+      now: 'now',
+      before_second: '%n second ago',
+      before_minute: '%n mintue ago',
+      before_hour: '%n hour ago',
+      before_day: '%n day ago',
+      after_second: '%n second left',
+      after_minute: '%n mintue left',
+      after_hour: '%n hour left',
+      after_day: '%n day left'
+    };
+    self.dateFormat = 'yyyy-MM-dd';
     var getText = function (key) {
         var labelKey = key;
         if (key === 'before_now' || key === 'after_now') {
-          key = 'now';
+          labelKey = 'now';
         }
-        return labelText[key];
+        return self.labelText[labelKey];
       }, localize = function (delta, unit_key) {
         var prefix = 'before_';
         if (delta < 0) {
@@ -40,19 +40,23 @@ angular.module('quark.relativeDate', []).filter('relativeDate', [
         var unit = getText(prefix + unit_key);
         return unit.replace('%n', Math.abs(delta));
       };
-    return function (date) {
-      var now = new Date(), relativeTime = new Date(date), delta = now - relativeTime, unit_key = 'now', key;
-      for (key in CONVERSIONS) {
-        if (Math.abs(delta) < CONVERSIONS[key]) {
-          break;
-        }
-        unit_key = key;
-        delta = delta / CONVERSIONS[key];
+    this.$get = [
+      '$filter',
+      function ($filter) {
+        return function (date) {
+          var now = new Date(), relativeTime = new Date(date), delta = now - relativeTime, unit_key = 'now', key;
+          for (key in CONVERSIONS) {
+            if (Math.abs(delta) < CONVERSIONS[key]) {
+              break;
+            }
+            unit_key = key;
+            delta = delta / CONVERSIONS[key];
+          }
+          if (unit_key === 'day' && delta > 0) {
+            return $filter('date')(relativeTime, self.dateFormat);
+          }
+          return localize(Math.floor(delta), unit_key);
+        };
       }
-      if (unit_key === 'day' && delta > 0) {
-        return $filter('date')(relativeTime, 'yyyy-MM-dd');
-      }
-      return localize(Math.floor(delta), unit_key);
-    };
-  }
-]);
+    ];
+  }]);
