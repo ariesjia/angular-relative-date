@@ -15,15 +15,15 @@ angular.module('quark.relativeDate', [])
         self.labelText = {
 
             now: "now",
-            before_second: "%n second ago",
-            before_minute: "%n mintue ago",
-            before_hour: "%n hour ago",
-            before_day: "%n day ago",
+            before_second: {"one" : "%n second ago" , "more" : "%n seconds ago"},
+            before_minute: {"one" : "%n minute ago" , "more" : "%n minutes ago"},
+            before_hour: {"one" : "%n hour ago" , "more" : "%n hours ago"},
+            before_day: {"one" : "%n day ago" , "more" : "%n days ago"},
 
-            after_second: "%n second left",
-            after_minute: "%n mintue left",
-            after_hour: "%n hour left",
-            after_day: "%n day left"
+            after_second: {"one" : "%n second left" , "more" : "%n seconds left"},
+            after_minute: {"one" : "%n minute left" , "more" : "%n minutes left"},
+            after_hour: {"one" : "%n hour left" , "more" : "%n hours left"},
+            after_day: {"one" : "%n day left" , "more" : "%n days left"}
 
         };
 
@@ -31,20 +31,20 @@ angular.module('quark.relativeDate', [])
 
         var getText = function (key) {
                 var labelKey = key;
-                if (key === 'before_now' || key === 'after_now') {
-                    labelKey = 'now';
-                }
                 return self.labelText[labelKey];
             },
             localize = function (delta, unit_key) {
 
-                var prefix = 'before_';
-
-                if (delta < 0) {
-                    prefix = 'after_';
+                if(unit_key !== 'now'){
+                    var prefix = 'before_';
+                    if (delta < 0) {
+                        prefix = 'after_';
+                    }
+                    unit_key = prefix + unit_key;
                 }
 
-                var unit = getText(prefix + unit_key);
+                var label = getText(unit_key),
+                    unit = angular.isString(label) ? label : ( delta == 1 ? label.one : label.more );
 
                 return unit.replace('%n', Math.abs(delta));
             };

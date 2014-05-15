@@ -5,7 +5,7 @@ angular.module('myApp')
 
         $scope.testDate = new Date();
 
-        $scope.testDate1 = new Date() - 2124;
+        $scope.testDate1 = new Date() - 1111;
         $scope.testDate2 = new Date() - 289733;
         $scope.testDate3 = new Date() - 872374;
         $scope.testDate4 = new Date() - 9333333;

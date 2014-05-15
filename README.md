@@ -31,6 +31,41 @@ or in script
 var relativeDate = relativeDateFilter(testDate);
 ```
 
+
+## Label
+
+```script
+// en  --- default
+relativeDateFilterProvider.labelText = {
+    now: "now",
+    before_second: {"one" : "%n second ago" , "more" : "%n seconds ago"},
+    before_minute: {"one" : "%n minute ago" , "more" : "%n minutes ago"},
+    before_hour: {"one" : "%n hour ago" , "more" : "%n hours ago"},
+    before_day: {"one" : "%n day ago" , "more" : "%n days ago"},
+
+    after_second: {"one" : "%n second left" , "more" : "%n seconds left"},
+    after_minute: {"one" : "%n minute left" , "more" : "%n minutes left"},
+    after_hour: {"one" : "%n hour left" , "more" : "%n hours left"},
+    after_day: {"one" : "%n day left" , "more" : "%n days left"}
+};
+```
+
+```script
+// zh-cn
+relativeDateFilterProvider.labelText = {
+    now: "现在",
+    before_second: "%n秒钟前",
+    before_minute: "%n分钟前",
+    before_hour: "%n小时前",
+    before_day: "%n天前",
+
+    after_second: "还剩%n秒钟",
+    after_minute: "还剩%n分钟",
+    after_hour: "还剩%n小时",
+    after_day: "还剩%n天"
+};
+```
+
 ## Demo
 
 ```html
@@ -40,27 +75,27 @@ testDate | relativeDate : now
 
 
 
-$scope.testDate1 = new Date() - 2124;
+$scope.testDate1 = new Date() - 1111;
 
-testDate1 | relativeDate : 2 second ago
+testDate1 | relativeDate : 1 second ago
 
 
 
 $scope.testDate2 = new Date() - 289733;
 
-testDate2 | relativeDate : 4 mintue ago
+testDate2 | relativeDate : 4 minutes ago
 
 
 
 $scope.testDate3 = new Date() - 872374;
 
-testDate3 | relativeDate : 14 mintue ago
+testDate3 | relativeDate : 14 minutes ago
 
 
 
 $scope.testDate4 = new Date() - 9333333;
 
-testDate4 | relativeDate : 2 hour ago
+testDate4 | relativeDate : 2 hours ago
 
 
 
@@ -72,19 +107,19 @@ testDate5 | relativeDate : 2014-05-02
 
 $scope.testDate6 = new Date().getTime() + 3000;
 
-testDate6 | relativeDate : 3 second left
+testDate6 | relativeDate : 3 seconds left
 
 
 
 $scope.testDate7 = new Date().getTime() + 848300;
 
-testDate7 | relativeDate : 15 mintue left
+testDate7 | relativeDate : 15 minutes left
 
 
 
 $scope.testDate9 = new Date().getTime() + 1292228300;
 
-testDate9 | relativeDate : 15 day left
+testDate9 | relativeDate : 15 days left
 
 ```
 
