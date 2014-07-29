@@ -1,6 +1,6 @@
 /**
  * angular-relative-date
- * @version v0.0.3 - 2014-05-15
+ * @version v0.0.4 - 2014-07-29
  * @link https://github.com/ariesjia/angular-relative-date
  * @author Chenjia <ariesjia00@hotmail.com>
  * @license MIT License, http://www.opensource.org/licenses/MIT
@@ -49,7 +49,10 @@ angular.module('quark.relativeDate', []).provider('relativeDateFilter', [functio
         'more': '%n days left'
       }
     };
-    self.dateFormat = 'yyyy-MM-dd';
+    self.datePattern = 'yyyy-MM-dd';
+    self.defaultFormat = function (unit_key, delta, relativeTime) {
+      return unit_key === 'day' && delta > 0;
+    };
     var getText = function (key) {
         var labelKey = key;
         return self.labelText[labelKey];
@@ -65,8 +68,8 @@ angular.module('quark.relativeDate', []).provider('relativeDateFilter', [functio
         return unit.replace('%n', Math.abs(delta));
       };
     this.$get = [
-      '$filter',
-      function ($filter) {
+      'dateFilter',
+      function (dateFilter) {
         return function (date) {
           var now = new Date(), relativeTime = new Date(date), delta = now - relativeTime, unit_key = 'now', key;
           for (key in CONVERSIONS) {
@@ -76,8 +79,8 @@ angular.module('quark.relativeDate', []).provider('relativeDateFilter', [functio
             unit_key = key;
             delta = delta / CONVERSIONS[key];
           }
-          if (unit_key === 'day' && delta > 0) {
-            return $filter('date')(relativeTime, self.dateFormat);
+          if (self.defaultFormat(unit_key, delta, relativeTime)) {
+            return dateFilter(relativeTime, self.datePattern);
           }
           return localize(Math.floor(delta), unit_key);
         };
