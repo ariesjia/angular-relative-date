@@ -3,17 +3,18 @@
 angular.module('quark.relativeDate', [])
     .provider('relativeDateFilter', [function (){
 
-        var self = this,
-            CONVERSIONS = {
-                now: 1,
-                second: 1000,
-                minute: 60,
-                hour: 60,
-                day: 24
-            };
+        var self = this;
+        
+		self.conversions = {
+        	now: 1,
+			second: 1000,
+			minute: 60,
+			hour: 60,
+			day: 24
+        };
 
         self.labelText = {
-
+			
             now: "now",
             before_second: {"one": "%n second ago", "more": "%n seconds ago"},
             before_minute: {"one": "%n minute ago", "more": "%n minutes ago"},
@@ -61,12 +62,14 @@ angular.module('quark.relativeDate', [])
                     unit_key = 'now',
                     key;
 
-                for (key in CONVERSIONS) {
-                    if (Math.abs(delta) < CONVERSIONS[key]) {
+                var conversions = self.conversions;
+
+                for (key in  conversions) {
+                    if (Math.abs(delta) < conversions[key]) {
                         break;
                     }
                     unit_key = key;
-                    delta = delta / CONVERSIONS[key];
+                    delta = delta / conversions[key];
                 }
 
                 if( self.defaultFormat(unit_key,delta,relativeTime) ){

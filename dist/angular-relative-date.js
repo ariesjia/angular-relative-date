@@ -1,19 +1,20 @@
 /**
  * angular-relative-date
- * @version v0.0.4 - 2014-07-29
+ * @version v0.0.4 - 2014-07-31
  * @link https://github.com/ariesjia/angular-relative-date
  * @author Chenjia <ariesjia00@hotmail.com>
  * @license MIT License, http://www.opensource.org/licenses/MIT
  */
 'use strict';
 angular.module('quark.relativeDate', []).provider('relativeDateFilter', [function () {
-    var self = this, CONVERSIONS = {
-        now: 1,
-        second: 1000,
-        minute: 60,
-        hour: 60,
-        day: 24
-      };
+    var self = this;
+    self.conversions = {
+      now: 1,
+      second: 1000,
+      minute: 60,
+      hour: 60,
+      day: 24
+    };
     self.labelText = {
       now: 'now',
       before_second: {
@@ -72,12 +73,13 @@ angular.module('quark.relativeDate', []).provider('relativeDateFilter', [functio
       function (dateFilter) {
         return function (date) {
           var now = new Date(), relativeTime = new Date(date), delta = now - relativeTime, unit_key = 'now', key;
-          for (key in CONVERSIONS) {
-            if (Math.abs(delta) < CONVERSIONS[key]) {
+          var conversions = self.conversions;
+          for (key in conversions) {
+            if (Math.abs(delta) < conversions[key]) {
               break;
             }
             unit_key = key;
-            delta = delta / CONVERSIONS[key];
+            delta = delta / conversions[key];
           }
           if (self.defaultFormat(unit_key, delta, relativeTime)) {
             return dateFilter(relativeTime, self.datePattern);
