@@ -1,6 +1,6 @@
 /**
  * angular-relative-date
- * @version v0.0.4 - 2014-07-31
+ * @version v0.1.0 - 2014-07-31
  * @link https://github.com/ariesjia/angular-relative-date
  * @author Chenjia <ariesjia00@hotmail.com>
  * @license MIT License, http://www.opensource.org/licenses/MIT
