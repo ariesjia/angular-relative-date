@@ -95,31 +95,36 @@ testDate3 | relativeDate : 14 minutes ago
 
 $scope.testDate4 = new Date() - 9333333;
 
-testDate4 | relativeDate : 2 hours ago
+testDate4 | relativeDate 
+result : 2 hours ago
 
 
 
 $scope.testDate5 = new Date() - 847484040;
 
-testDate5 | relativeDate : 2014-05-02
+testDate5 | relativeDate
+result : 2014-05-02
 
 
 
 $scope.testDate6 = new Date().getTime() + 3000;
 
-testDate6 | relativeDate : 3 seconds left
+testDate6 | relativeDate
+result : 3 seconds left
 
 
 
 $scope.testDate7 = new Date().getTime() + 848300;
 
-testDate7 | relativeDate : 15 minutes left
+testDate7 | relativeDate
+result : 15 minutes left
 
 
 
 $scope.testDate9 = new Date().getTime() + 1292228300;
 
-testDate9 | relativeDate : 15 days left
+testDate9 | relativeDate
+result : 15 days left
 
 ```
 
