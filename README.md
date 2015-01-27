@@ -71,25 +71,29 @@ relativeDateFilterProvider.labelText = {
 ```html
 $scope.testDate = new Date();
 
-testDate | relativeDate : now
+testDate | relativeDate
+result : now
 
 
 
 $scope.testDate1 = new Date() - 1111;
 
-testDate1 | relativeDate : 1 second ago
+testDate1 | relativeDate
+result : 1 second ago
 
 
 
 $scope.testDate2 = new Date() - 289733;
 
-testDate2 | relativeDate : 4 minutes ago
+testDate2 | relativeDate
+result : 4 minutes ago
 
 
 
 $scope.testDate3 = new Date() - 872374;
 
-testDate3 | relativeDate : 14 minutes ago
+testDate3 | relativeDate
+result : 14 minutes ago
 
 
 
